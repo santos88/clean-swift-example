@@ -26,23 +26,41 @@
             </objects>
             <point key="canvasLocation" x="-714" y="133"/>
         </scene>
-        <!--List Breeds View Controller-->
+        <!--Breeds-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ListBreedsViewController" customModule="DogsApiCleanSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xtK-pt-Kpv">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kKn-TX-dCV"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xBp-FT-XgW"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="xtK-pt-Kpv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IFp-Le-NVQ"/>
+                            <constraint firstItem="xtK-pt-Kpv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="L4w-3C-L7g"/>
+                            <constraint firstItem="xtK-pt-Kpv" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="PgH-43-x1n"/>
+                            <constraint firstItem="xtK-pt-Kpv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wgR-nV-gYi"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qSy-jt-quX"/>
+                    <navigationItem key="navigationItem" title="Breeds" id="qSy-jt-quX"/>
                     <connections>
+                        <outlet property="tableView" destination="xtK-pt-Kpv" id="KA7-pc-sjc"/>
                         <segue destination="8gS-xP-aEP" kind="show" identifier="goToDetailBreed" id="ejA-xm-Orw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="180" y="132.68365817091455"/>
         </scene>
         <!--Detail Breed View Controller-->
         <scene sceneID="f66-Q5-3LO">
@@ -51,13 +69,44 @@
                     <view key="view" contentMode="scaleToFill" id="Ig1-PP-XRa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fQY-F6-3XZ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="245" id="OPt-1V-whW" customClass="DogTableViewCell" customModule="DogsApiCleanSwiftExample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="245"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OPt-1V-whW" id="Xim-0r-p4B">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="244.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8Z-uC-Bbc">
+                                                    <rect key="frame" x="67" y="11" width="240" height="220"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fQY-F6-3XZ" firstAttribute="trailing" secondItem="dck-Yo-bJV" secondAttribute="trailing" id="4To-qA-J6s"/>
+                            <constraint firstItem="fQY-F6-3XZ" firstAttribute="bottom" secondItem="dck-Yo-bJV" secondAttribute="bottom" id="9vl-Gi-t2F"/>
+                            <constraint firstItem="fQY-F6-3XZ" firstAttribute="top" secondItem="dck-Yo-bJV" secondAttribute="top" id="csJ-oF-Zmz"/>
+                            <constraint firstItem="fQY-F6-3XZ" firstAttribute="leading" secondItem="dck-Yo-bJV" secondAttribute="leading" id="mB4-w3-wO2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="dck-Yo-bJV"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="fQY-F6-3XZ" id="cOY-RN-242"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ufk-8T-tVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1062" y="133"/>
+            <point key="canvasLocation" x="1061.5999999999999" y="132.68365817091455"/>
         </scene>
     </scenes>
 </document>

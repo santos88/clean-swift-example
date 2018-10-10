@@ -15,12 +15,14 @@ import UIKit
 enum ListBreeds {
     // MARK: Use cases
 
-    enum Something {
+    enum InitialLoad {
         struct Request {
         }
         struct Response {
+            let breeds: [String]
         }
         struct ViewModel {
+            let breeds: [String]
         }
     }
 }

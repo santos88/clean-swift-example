@@ -16,3 +16,8 @@ class ListBreedsWorker {
     func doSomeWork() {
     }
 }
+
+struct BreedsApiResponseModel: Codable {
+    var status: String
+    var message: [String]
+}

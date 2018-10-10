@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ListBreedsPresentationLogic {
-    func presentSomething(response: ListBreeds.Something.Response)
+    func presentSomething(response: ListBreeds.InitialLoad.Response)
 }
 
 class ListBreedsPresenter: ListBreedsPresentationLogic {
@@ -21,8 +21,8 @@ class ListBreedsPresenter: ListBreedsPresentationLogic {
 
     // MARK: Do something
 
-    func presentSomething(response: ListBreeds.Something.Response) {
-        let viewModel = ListBreeds.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func presentSomething(response: ListBreeds.InitialLoad.Response) {
+        let viewModel = ListBreeds.InitialLoad.ViewModel(breeds: response.breeds)
+        viewController?.displayBreeds(viewModel: viewModel)
     }
 }

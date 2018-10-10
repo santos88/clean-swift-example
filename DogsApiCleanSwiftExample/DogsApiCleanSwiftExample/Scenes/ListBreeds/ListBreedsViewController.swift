@@ -13,12 +13,14 @@
 import UIKit
 
 protocol ListBreedsDisplayLogic: class {
-    func displaySomething(viewModel: ListBreeds.Something.ViewModel)
+    func displayBreeds(viewModel: ListBreeds.InitialLoad.ViewModel)
 }
 
 class ListBreedsViewController: UIViewController, ListBreedsDisplayLogic {
+    @IBOutlet weak var tableView: UITableView!
     var interactor: ListBreedsBusinessLogic?
     var router: (NSObjectProtocol & ListBreedsRoutingLogic & ListBreedsDataPassing)?
+    var viewModel: ListBreeds.InitialLoad.ViewModel?
 
     // MARK: Object lifecycle
 
@@ -62,19 +64,40 @@ class ListBreedsViewController: UIViewController, ListBreedsDisplayLogic {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        registerCells()
+        initialLoad()
     }
 
-    // MARK: Do something
-
-    //@IBOutlet weak var nameTextField: UITextField!
-
-    func doSomething() {
-        let request = ListBreeds.Something.Request()
-        interactor?.doSomething(request: request)
+    func registerCells() {
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicCell")
     }
 
-    func displaySomething(viewModel: ListBreeds.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+    func initialLoad() {
+        let request = ListBreeds.InitialLoad.Request()
+        interactor?.initialLoad(request: request)
+    }
+
+    func displayBreeds(viewModel: ListBreeds.InitialLoad.ViewModel) {
+        
     }
 }
+
+extension ListBreedsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let viewModel = viewModel else { return 4 }
+        return viewModel.breeds.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "basicCell")
+        cell?.textLabel?.text = "haoa"
+        return cell!
+    }
+}
+
+extension ListBreedsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+}
+

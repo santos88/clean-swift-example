@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ListBreedsBusinessLogic {
-    func doSomething(request: ListBreeds.Something.Request)
+    func initialLoad(request: ListBreeds.InitialLoad.Request)
 }
 
 protocol ListBreedsDataStore {
@@ -27,11 +27,11 @@ class ListBreedsInteractor: ListBreedsBusinessLogic, ListBreedsDataStore {
 
     // MARK: Do something
 
-    func doSomething(request: ListBreeds.Something.Request) {
+    func initialLoad(request: ListBreeds.InitialLoad.Request) {
         worker = ListBreedsWorker()
         worker?.doSomeWork()
 
-        let response = ListBreeds.Something.Response()
+        let response = ListBreeds.InitialLoad.Response(breeds: [])
         presenter?.presentSomething(response: response)
     }
 }
