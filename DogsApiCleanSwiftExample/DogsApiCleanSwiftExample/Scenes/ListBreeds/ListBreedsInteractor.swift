@@ -22,16 +22,16 @@ protocol ListBreedsDataStore {
 
 class ListBreedsInteractor: ListBreedsBusinessLogic, ListBreedsDataStore {
     var presenter: ListBreedsPresentationLogic?
-    var worker: ListBreedsWorker?
-    //var name: String = ""
-
-    // MARK: Do something
+    var worker: ListBreedsWorkerProtocol?
 
     func initialLoad(request: ListBreeds.InitialLoad.Request) {
         worker = ListBreedsWorker()
-        worker?.doSomeWork()
-
-        let response = ListBreeds.InitialLoad.Response(breeds: [])
-        presenter?.presentSomething(response: response)
+        worker?.listAllBreeds(completion: { (apiResponse, error) in
+            var response = ListBreeds.InitialLoad.Response(breeds: [])
+            if let apiResponse = apiResponse {
+                response = ListBreeds.InitialLoad.Response(breeds: apiResponse.message)
+            }
+            self.presenter?.presentListBreeds(response: response)
+        })
     }
 }

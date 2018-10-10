@@ -12,12 +12,14 @@
 
 import UIKit
 
-class ListBreedsWorker {
-    func doSomeWork() {
-    }
+protocol ListBreedsWorkerProtocol {
+    func listAllBreeds(completion: @escaping (BreedsApiResponseModel?, Error?) -> Void)
 }
 
-struct BreedsApiResponseModel: Codable {
-    var status: String
-    var message: [String]
+class ListBreedsWorker:ListBreedsWorkerProtocol {
+    func listAllBreeds(completion: @escaping (BreedsApiResponseModel?, Error?) -> Void) {
+        BreedsAPI.shared.listAll(service: .listAllBreeds) { (apiResponse, error) in
+            completion(apiResponse, error)
+        }
+    }
 }

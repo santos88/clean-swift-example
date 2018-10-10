@@ -44,6 +44,9 @@
 		97C6110D216EB1B200D049E2 /* DetailBreedInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C61109216EB1B200D049E2 /* DetailBreedInteractorTests.swift */; };
 		97C6110E216EB1B200D049E2 /* DetailBreedWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C6110A216EB1B200D049E2 /* DetailBreedWorkerTests.swift */; };
 		97C6110F216EB1B200D049E2 /* DetailBreedPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C6110B216EB1B200D049E2 /* DetailBreedPresenterTests.swift */; };
+		97C61112216EB48C00D049E2 /* DogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C61111216EB48C00D049E2 /* DogTableViewCell.swift */; };
+		97C61115216EBDC700D049E2 /* BreedsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C61114216EBDC700D049E2 /* BreedsAPI.swift */; };
+		97C61116216EBDC700D049E2 /* BreedsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C61114216EBDC700D049E2 /* BreedsAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,8 @@
 		97C61109216EB1B200D049E2 /* DetailBreedInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBreedInteractorTests.swift; sourceTree = "<group>"; };
 		97C6110A216EB1B200D049E2 /* DetailBreedWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBreedWorkerTests.swift; sourceTree = "<group>"; };
 		97C6110B216EB1B200D049E2 /* DetailBreedPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBreedPresenterTests.swift; sourceTree = "<group>"; };
+		97C61111216EB48C00D049E2 /* DogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogTableViewCell.swift; sourceTree = "<group>"; };
+		97C61114216EBDC700D049E2 /* BreedsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,7 @@
 		97C610A9216EB00400D049E2 /* DogsApiCleanSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
+				97C61113216EBDA200D049E2 /* API */,
 				97C610CA216EB01100D049E2 /* Scenes */,
 				97C610AA216EB00400D049E2 /* AppDelegate.swift */,
 				97C610AE216EB00400D049E2 /* Main.storyboard */,
@@ -172,6 +178,7 @@
 		97C610D8216EB0D700D049E2 /* DetailBreed */ = {
 			isa = PBXGroup;
 			children = (
+				97C61110216EB45A00D049E2 /* Cells */,
 				97C610EB216EB14400D049E2 /* DetailBreedPresenter.swift */,
 				97C610EC216EB14400D049E2 /* DetailBreedWorker.swift */,
 				97C610ED216EB14400D049E2 /* DetailBreedRouter.swift */,
@@ -211,6 +218,22 @@
 				97C61103216EB19200D049E2 /* ListBreedsPresenterTests.swift */,
 			);
 			path = ListBreeds;
+			sourceTree = "<group>";
+		};
+		97C61110216EB45A00D049E2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				97C61111216EB48C00D049E2 /* DogTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		97C61113216EBDA200D049E2 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				97C61114216EBDC700D049E2 /* BreedsAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,8 +339,10 @@
 			files = (
 				97C610E7216EB10B00D049E2 /* ListBreedsViewController.swift in Sources */,
 				97C610F9216EB14400D049E2 /* DetailBreedViewController.swift in Sources */,
+				97C61112216EB48C00D049E2 /* DogTableViewCell.swift in Sources */,
 				97C610F3216EB14400D049E2 /* DetailBreedWorker.swift in Sources */,
 				97C610E9216EB10B00D049E2 /* ListBreedsInteractor.swift in Sources */,
+				97C61115216EBDC700D049E2 /* BreedsAPI.swift in Sources */,
 				97C610FB216EB14400D049E2 /* DetailBreedInteractor.swift in Sources */,
 				97C610F7216EB14400D049E2 /* DetailBreedModels.swift in Sources */,
 				97C610E5216EB10B00D049E2 /* ListBreedsModels.swift in Sources */,
@@ -349,6 +374,7 @@
 				97C61105216EB19200D049E2 /* ListBreedsInteractorTests.swift in Sources */,
 				97C6110C216EB1B200D049E2 /* DetailBreedViewControllerTests.swift in Sources */,
 				97C61104216EB19200D049E2 /* ListBreedsViewControllerTests.swift in Sources */,
+				97C61116216EBDC700D049E2 /* BreedsAPI.swift in Sources */,
 				97C610F6216EB14400D049E2 /* DetailBreedRouter.swift in Sources */,
 				97C6110D216EB1B200D049E2 /* DetailBreedInteractorTests.swift in Sources */,
 				97C610EA216EB10B00D049E2 /* ListBreedsInteractor.swift in Sources */,

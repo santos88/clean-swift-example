@@ -49,17 +49,6 @@ class ListBreedsViewController: UIViewController, ListBreedsDisplayLogic {
         router.dataStore = interactor
     }
 
-    // MARK: Routing
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-
     // MARK: View lifecycle
 
     override func viewDidLoad() {
@@ -78,19 +67,22 @@ class ListBreedsViewController: UIViewController, ListBreedsDisplayLogic {
     }
 
     func displayBreeds(viewModel: ListBreeds.InitialLoad.ViewModel) {
-        
+        self.viewModel = viewModel
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
 extension ListBreedsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let viewModel = viewModel else { return 4 }
+        guard let viewModel = viewModel else { return 0 }
         return viewModel.breeds.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "basicCell")
-        cell?.textLabel?.text = "haoa"
+        cell?.textLabel?.text = viewModel?.breeds[indexPath.row]
         return cell!
     }
 }

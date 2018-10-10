@@ -13,15 +13,13 @@
 import UIKit
 
 protocol ListBreedsPresentationLogic {
-    func presentSomething(response: ListBreeds.InitialLoad.Response)
+    func presentListBreeds(response: ListBreeds.InitialLoad.Response)
 }
 
 class ListBreedsPresenter: ListBreedsPresentationLogic {
     weak var viewController: ListBreedsDisplayLogic?
 
-    // MARK: Do something
-
-    func presentSomething(response: ListBreeds.InitialLoad.Response) {
+    func presentListBreeds(response: ListBreeds.InitialLoad.Response) {
         let viewModel = ListBreeds.InitialLoad.ViewModel(breeds: response.breeds)
         viewController?.displayBreeds(viewModel: viewModel)
     }
