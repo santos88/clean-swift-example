@@ -38,25 +38,54 @@ class ListBreedsInteractorTests: XCTestCase {
     // MARK: Test doubles
 
     class ListBreedsPresentationLogicSpy: ListBreedsPresentationLogic {
-        var presentSomethingCalled = false
+        var presentListBreedsCalled = false
+        var presentDetailBreedCalled = false
 
-        func presentSomething(response: ListBreeds.Something.Response) {
-            presentSomethingCalled = true
+        func presentListBreeds(response: ListBreeds.InitialLoad.Response) {
+            presentListBreedsCalled = true
+        }
+
+        func presentDetailBreed() {
+            presentDetailBreedCalled = true
+        }
+
+    }
+
+    class WorkerSpy: ListBreedsWorkerProtocol {
+        func listAllBreeds(completion: @escaping (BreedsApiResponseModel?, Error?) -> Void) {
+            let model = BreedsApiResponseModel(status: "ok", message: ["pekines", "bulldog"])
+            completion(model, nil)
         }
     }
 
     // MARK: Tests
 
-    func testDoSomething() {
+    func testInitialLoad() {
         // Given
         let spy = ListBreedsPresentationLogicSpy()
         sut.presenter = spy
-        let request = ListBreeds.Something.Request()
+        sut.worker = WorkerSpy()
+        let request = ListBreeds.InitialLoad.Request()
 
         // When
-        sut.doSomething(request: request)
+        sut.initialLoad(request: request)
 
         // Then
-        XCTAssertTrue(spy.presentSomethingCalled, "doSomething(request:) should ask the presenter to format the result")
+        XCTAssertTrue(spy.presentListBreedsCalled, "initialLoad(request:) should ask the presenter to format the result")
+
+    }
+
+
+    func testSelectRow() {
+        // Given
+        let spy = ListBreedsPresentationLogicSpy()
+        sut.presenter = spy
+        sut.breeds = ["pekines", "bulldog"]
+
+        // When
+        sut.select(row: 1)
+
+        // Then
+        XCTAssertTrue(spy.presentDetailBreedCalled, "select(row:) should ask the presenter to present the detail")
     }
 }

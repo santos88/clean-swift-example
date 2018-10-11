@@ -24,15 +24,14 @@ protocol ListBreedsDataStore {
 class ListBreedsInteractor: ListBreedsBusinessLogic, ListBreedsDataStore {
 
     var presenter: ListBreedsPresentationLogic?
-    var worker: ListBreedsWorkerProtocol?
+    var worker: ListBreedsWorkerProtocol = ListBreedsWorker()
     var selectedBreed: String?
 
     //internal
     var breeds:[String] = []
 
     func initialLoad(request: ListBreeds.InitialLoad.Request) {
-        worker = ListBreedsWorker()
-        worker?.listAllBreeds(completion: { (apiResponse, error) in
+        worker.listAllBreeds(completion: { (apiResponse, error) in
             var response = ListBreeds.InitialLoad.Response(breeds: [])
             if let apiResponse = apiResponse {
                 self.breeds = apiResponse.message

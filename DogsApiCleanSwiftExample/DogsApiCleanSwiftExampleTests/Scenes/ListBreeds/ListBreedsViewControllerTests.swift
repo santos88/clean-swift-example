@@ -47,16 +47,19 @@ class ListBreedsViewControllerTests: XCTestCase {
     // MARK: Test doubles
 
     class ListBreedsBusinessLogicSpy: ListBreedsBusinessLogic {
-        var doSomethingCalled = false
+        var initialLoadCalled = false
+        var selectCalled = false
 
-        func doSomething(request: ListBreeds.Something.Request) {
-            doSomethingCalled = true
+        func initialLoad(request: ListBreeds.InitialLoad.Request) {
+            initialLoadCalled = true
+        }
+
+        func select(row: Int) {
+            selectCalled = true
         }
     }
 
-    // MARK: Tests
-
-    func testShouldDoSomethingWhenViewIsLoaded() {
+    func testShouldInitialLoadWhenViewIsLoaded() {
         // Given
         let spy = ListBreedsBusinessLogicSpy()
         sut.interactor = spy
@@ -65,18 +68,18 @@ class ListBreedsViewControllerTests: XCTestCase {
         loadView()
 
         // Then
-        XCTAssertTrue(spy.doSomethingCalled, "viewDidLoad() should ask the interactor to do something")
+        XCTAssertTrue(spy.initialLoadCalled, "viewDidLoad() should ask the interactor to do initialLoad()")
     }
 
-    func testDisplaySomething() {
+    func testDisplayBreeds() {
         // Given
-        let viewModel = ListBreeds.Something.ViewModel()
+        let viewModel = ListBreeds.InitialLoad.ViewModel(breeds: ["boxer", "pekines"])
 
         // When
         loadView()
-        sut.displaySomething(viewModel: viewModel)
+        sut.displayBreeds(viewModel: viewModel)
 
         // Then
-        //XCTAssertEqual(sut.nameTextField.text, "", "displaySomething(viewModel:) should update the name text field")
+        XCTAssertEqual(sut.viewModel?.breeds.count, viewModel.breeds.count, "displayBreeds(viewModel:) should be the same")
     }
 }

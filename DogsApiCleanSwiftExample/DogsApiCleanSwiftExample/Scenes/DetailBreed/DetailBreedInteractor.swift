@@ -22,14 +22,13 @@ protocol DetailBreedDataStore {
 
 class DetailBreedInteractor: DetailBreedBusinessLogic, DetailBreedDataStore {
     var presenter: DetailBreedPresentationLogic?
-    var worker: DetailBreedWorkerProtocol?
+    var worker: DetailBreedWorkerProtocol = DetailBreedWorker()
     var selectedBreed: String?
 
     // MARK: Do something
 
     func initialLoad(request: DetailBreed.InitialLoad.Request) {
-        worker = DetailBreedWorker()
-        worker?.listAllPictures(breedName: selectedBreed!, completion: { (apiResponse, error) in
+        worker.listAllPictures(breedName: selectedBreed!, completion: { (apiResponse, error) in
             var response = DetailBreed.InitialLoad.Response(pictures: [], title: "Error Loading")
             if let apiResponse = apiResponse {
                 response = DetailBreed.InitialLoad.Response(pictures: apiResponse.message, title: self.selectedBreed!)

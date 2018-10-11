@@ -38,10 +38,10 @@ class DetailBreedPresenterTests: XCTestCase {
     // MARK: Test doubles
 
     class DetailBreedDisplayLogicSpy: DetailBreedDisplayLogic {
-        var displaySomethingCalled = false
+        var displayPicturesCalled = false
 
-        func displaySomething(viewModel: DetailBreed.Something.ViewModel) {
-            displaySomethingCalled = true
+        func displayPictures(viewModel: DetailBreed.InitialLoad.ViewModel) {
+            displayPicturesCalled = true
         }
     }
 
@@ -51,12 +51,12 @@ class DetailBreedPresenterTests: XCTestCase {
         // Given
         let spy = DetailBreedDisplayLogicSpy()
         sut.viewController = spy
-        let response = DetailBreed.Something.Response()
+        let response = DetailBreed.InitialLoad.Response(pictures: ["pic1", "pic2"], title: "Bulldog")
 
         // When
-        sut.presentSomething(response: response)
+        sut.presentPictures(response: response)
 
         // Then
-        XCTAssertTrue(spy.displaySomethingCalled, "presentSomething(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spy.displayPicturesCalled, "presentPictures(response:) should ask the view controller to display the pictures")
     }
 }

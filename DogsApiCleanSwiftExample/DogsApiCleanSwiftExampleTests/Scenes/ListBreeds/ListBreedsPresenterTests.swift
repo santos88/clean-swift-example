@@ -38,25 +38,43 @@ class ListBreedsPresenterTests: XCTestCase {
     // MARK: Test doubles
 
     class ListBreedsDisplayLogicSpy: ListBreedsDisplayLogic {
-        var displaySomethingCalled = false
+        var displayBreedsCalled = false
+        var displayDetailBreedCalled = false
 
-        func displaySomething(viewModel: ListBreeds.Something.ViewModel) {
-            displaySomethingCalled = true
+        func displayBreeds(viewModel: ListBreeds.InitialLoad.ViewModel) {
+            displayBreedsCalled = true
+        }
+
+        func displayDetailBreed() {
+            displayDetailBreedCalled = true
         }
     }
 
     // MARK: Tests
 
-    func testPresentSomething() {
+    func testPresentListBreeds() {
         // Given
         let spy = ListBreedsDisplayLogicSpy()
         sut.viewController = spy
-        let response = ListBreeds.Something.Response()
+        let response = ListBreeds.InitialLoad.Response(breeds: ["pekines", "bulldog"])
 
         // When
-        sut.presentSomething(response: response)
+        sut.presentListBreeds(response: response)
 
         // Then
-        XCTAssertTrue(spy.displaySomethingCalled, "presentSomething(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spy.displayBreedsCalled, "presentListBreeds(response:) should ask the view controller to display the result")
     }
+
+    func testPresentDetailBreed() {
+        // Given
+        let spy = ListBreedsDisplayLogicSpy()
+        sut.viewController = spy
+
+        // When
+        sut.presentDetailBreed()
+
+        // Then
+        XCTAssertTrue(spy.displayDetailBreedCalled, "presentDetailBreed() should ask the view controller to go to the next screen")
+    }
+
 }

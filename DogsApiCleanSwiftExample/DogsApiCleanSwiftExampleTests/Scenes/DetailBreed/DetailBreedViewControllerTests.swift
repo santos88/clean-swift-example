@@ -32,7 +32,7 @@ class DetailBreedViewControllerTests: XCTestCase {
     }
 
     // MARK: Test setup
-    
+
     func setupDetailBreedViewController() {
         let bundle = Bundle.main
         let storyboard = UIStoryboard(name: "Main", bundle: bundle)
@@ -47,16 +47,16 @@ class DetailBreedViewControllerTests: XCTestCase {
     // MARK: Test doubles
 
     class DetailBreedBusinessLogicSpy: DetailBreedBusinessLogic {
-        var doSomethingCalled = false
+        var initialLoadCalled = false
 
-        func doSomething(request: DetailBreed.Something.Request) {
-            doSomethingCalled = true
+        func initialLoad(request: DetailBreed.InitialLoad.Request) {
+            initialLoadCalled = true
         }
     }
 
     // MARK: Tests
 
-    func testShouldDoSomethingWhenViewIsLoaded() {
+    func testInitialLoadWhenViewIsLoaded() {
         // Given
         let spy = DetailBreedBusinessLogicSpy()
         sut.interactor = spy
@@ -65,18 +65,6 @@ class DetailBreedViewControllerTests: XCTestCase {
         loadView()
 
         // Then
-        XCTAssertTrue(spy.doSomethingCalled, "viewDidLoad() should ask the interactor to do something")
-    }
-
-    func testDisplaySomething() {
-        // Given
-        let viewModel = DetailBreed.Something.ViewModel()
-
-        // When
-        loadView()
-        sut.displaySomething(viewModel: viewModel)
-
-        // Then
-        //XCTAssertEqual(sut.nameTextField.text, "", "displaySomething(viewModel:) should update the name text field")
+        XCTAssertTrue(spy.initialLoadCalled, "viewDidLoad() should ask the interactor to InitialLoad")
     }
 }

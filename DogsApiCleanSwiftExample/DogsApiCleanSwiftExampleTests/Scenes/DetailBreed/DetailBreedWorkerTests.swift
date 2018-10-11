@@ -39,11 +39,8 @@ class DetailBreedWorkerTests: XCTestCase {
 
     // MARK: Tests
 
-    func testSomething() {
-        // Given
-
-        // When
-
-        // Then
+    func testAPI() {
+        // NOTE:
+        // we should use some kind of interceptors for the network stubs to test this.
     }
 }

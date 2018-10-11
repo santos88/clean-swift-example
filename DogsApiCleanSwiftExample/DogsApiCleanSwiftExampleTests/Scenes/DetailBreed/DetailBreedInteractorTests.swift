@@ -37,26 +37,35 @@ class DetailBreedInteractorTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class DetailBreedPresentationLogicSpy: DetailBreedPresentationLogic {
-        var presentSomethingCalled = false
+    class workerSpy: DetailBreedWorkerProtocol {
+        func listAllPictures(breedName: String, completion: @escaping (BreedsApiResponseModel?, Error?) -> Void) {
+            let model = BreedsApiResponseModel(status: "ok", message: ["pic1", "pic2"])
+            completion(model, nil)
+        }
+    }
 
-        func presentSomething(response: DetailBreed.Something.Response) {
-            presentSomethingCalled = true
+    class DetailBreedPresentationLogicSpy: DetailBreedPresentationLogic {
+        var presentPicturesCalled = false
+
+        func presentPictures(response: DetailBreed.InitialLoad.Response) {
+            presentPicturesCalled = true
         }
     }
 
     // MARK: Tests
 
-    func testDoSomething() {
+    func testPresentPictures() {
         // Given
         let spy = DetailBreedPresentationLogicSpy()
         sut.presenter = spy
-        let request = DetailBreed.Something.Request()
+        sut.worker = workerSpy()
+        sut.selectedBreed = "pekines"
+        let request = DetailBreed.InitialLoad.Request()
 
         // When
-        sut.doSomething(request: request)
+        sut.initialLoad(request: request)
 
         // Then
-        XCTAssertTrue(spy.presentSomethingCalled, "doSomething(request:) should ask the presenter to format the result")
+        XCTAssertTrue(spy.presentPicturesCalled, "initialLoad(request:) should ask the presenter to present the pictures")
     }
 }
