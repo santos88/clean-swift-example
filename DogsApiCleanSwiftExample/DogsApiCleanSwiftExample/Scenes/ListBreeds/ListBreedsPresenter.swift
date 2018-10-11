@@ -14,6 +14,7 @@ import UIKit
 
 protocol ListBreedsPresentationLogic {
     func presentListBreeds(response: ListBreeds.InitialLoad.Response)
+    func presentDetailBreed()
 }
 
 class ListBreedsPresenter: ListBreedsPresentationLogic {
@@ -22,5 +23,9 @@ class ListBreedsPresenter: ListBreedsPresentationLogic {
     func presentListBreeds(response: ListBreeds.InitialLoad.Response) {
         let viewModel = ListBreeds.InitialLoad.ViewModel(breeds: response.breeds)
         viewController?.displayBreeds(viewModel: viewModel)
+    }
+
+    func presentDetailBreed() {
+        viewController?.displayDetailBreed()
     }
 }

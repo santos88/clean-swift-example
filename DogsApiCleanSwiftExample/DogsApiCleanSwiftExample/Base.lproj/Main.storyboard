@@ -55,7 +55,7 @@
                     <navigationItem key="navigationItem" title="Breeds" id="qSy-jt-quX"/>
                     <connections>
                         <outlet property="tableView" destination="xtK-pt-Kpv" id="KA7-pc-sjc"/>
-                        <segue destination="8gS-xP-aEP" kind="show" identifier="goToDetailBreed" id="ejA-xm-Orw"/>
+                        <segue destination="8gS-xP-aEP" kind="show" identifier="DetailBreed" id="ejA-xm-Orw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

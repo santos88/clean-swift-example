@@ -17,13 +17,13 @@ protocol DetailBreedBusinessLogic {
 }
 
 protocol DetailBreedDataStore {
-    //var name: String { get set }
+    var selectedBreed: String? { get set }
 }
 
 class DetailBreedInteractor: DetailBreedBusinessLogic, DetailBreedDataStore {
     var presenter: DetailBreedPresentationLogic?
     var worker: DetailBreedWorker?
-    //var name: String = ""
+    var selectedBreed: String?
 
     // MARK: Do something
 

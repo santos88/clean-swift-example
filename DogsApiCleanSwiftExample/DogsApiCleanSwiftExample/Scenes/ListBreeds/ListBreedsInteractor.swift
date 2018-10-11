@@ -14,24 +14,37 @@ import UIKit
 
 protocol ListBreedsBusinessLogic {
     func initialLoad(request: ListBreeds.InitialLoad.Request)
+    func select(row: Int)
 }
 
 protocol ListBreedsDataStore {
-    //var name: String { get set }
+    var selectedBreed: String? { get set }
 }
 
 class ListBreedsInteractor: ListBreedsBusinessLogic, ListBreedsDataStore {
+
     var presenter: ListBreedsPresentationLogic?
     var worker: ListBreedsWorkerProtocol?
+    var selectedBreed: String?
+
+    //internal
+    var breeds:[String] = []
 
     func initialLoad(request: ListBreeds.InitialLoad.Request) {
         worker = ListBreedsWorker()
         worker?.listAllBreeds(completion: { (apiResponse, error) in
             var response = ListBreeds.InitialLoad.Response(breeds: [])
             if let apiResponse = apiResponse {
-                response = ListBreeds.InitialLoad.Response(breeds: apiResponse.message)
+                self.breeds = apiResponse.message
+                response = ListBreeds.InitialLoad.Response(breeds: self.breeds)
             }
             self.presenter?.presentListBreeds(response: response)
         })
     }
+
+    func select(row: Int) {
+        selectedBreed = breeds[row]
+        presenter?.presentDetailBreed()
+    }
+
 }
