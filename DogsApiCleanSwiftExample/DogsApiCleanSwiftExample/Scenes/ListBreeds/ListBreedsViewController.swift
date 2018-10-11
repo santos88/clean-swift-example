@@ -65,12 +65,7 @@ class ListBreedsViewController: UIViewController, ListBreedsDisplayLogic {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCells()
         initialLoad()
-    }
-
-    func registerCells() {
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicCell")
     }
 
     func initialLoad() {

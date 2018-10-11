@@ -15,12 +15,16 @@ import UIKit
 enum DetailBreed {
     // MARK: Use cases
 
-    enum Something {
+    enum InitialLoad {
         struct Request {
         }
         struct Response {
+            let pictures: [String]
+            let title: String
         }
         struct ViewModel {
+            let pictures: [String]
+            let title: String
         }
     }
 }

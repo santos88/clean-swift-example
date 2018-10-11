@@ -22,7 +22,7 @@ enum BreedServices {
         case .listAllBreeds:
             return URL(string: "https://dog.ceo/api/breeds/list")!
         case .listPictures(let breed):
-            return URL(string: "https://dog.ceo/api/" + breed + "/list")!
+            return URL(string: "https://dog.ceo/api/breed/" + breed + "/images")!
         }
     }
 }

@@ -12,7 +12,14 @@
 
 import UIKit
 
-class DetailBreedWorker {
-    func doSomeWork() {
+protocol DetailBreedWorkerProtocol {
+    func listAllPictures(breedName: String, completion: @escaping (BreedsApiResponseModel?, Error?) -> Void)
+}
+
+class DetailBreedWorker:DetailBreedWorkerProtocol {
+    func listAllPictures(breedName: String, completion: @escaping (BreedsApiResponseModel?, Error?) -> Void) {
+        BreedsAPI.shared.listAll(service: .listPictures(breed: breedName)) { (apiResponse, error) in
+            completion(apiResponse, error)
+        }
     }
 }

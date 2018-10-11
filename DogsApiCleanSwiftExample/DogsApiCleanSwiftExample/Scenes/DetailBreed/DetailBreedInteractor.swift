@@ -13,7 +13,7 @@
 import UIKit
 
 protocol DetailBreedBusinessLogic {
-    func doSomething(request: DetailBreed.Something.Request)
+    func initialLoad(request: DetailBreed.InitialLoad.Request)
 }
 
 protocol DetailBreedDataStore {
@@ -22,16 +22,20 @@ protocol DetailBreedDataStore {
 
 class DetailBreedInteractor: DetailBreedBusinessLogic, DetailBreedDataStore {
     var presenter: DetailBreedPresentationLogic?
-    var worker: DetailBreedWorker?
+    var worker: DetailBreedWorkerProtocol?
     var selectedBreed: String?
 
     // MARK: Do something
 
-    func doSomething(request: DetailBreed.Something.Request) {
+    func initialLoad(request: DetailBreed.InitialLoad.Request) {
         worker = DetailBreedWorker()
-        worker?.doSomeWork()
+        worker?.listAllPictures(breedName: selectedBreed!, completion: { (apiResponse, error) in
+            var response = DetailBreed.InitialLoad.Response(pictures: [], title: "Error Loading")
+            if let apiResponse = apiResponse {
+                response = DetailBreed.InitialLoad.Response(pictures: apiResponse.message, title: self.selectedBreed!)
+            }
+            self.presenter?.presentPictures(response: response)
+        })
 
-        let response = DetailBreed.Something.Response()
-        presenter?.presentSomething(response: response)
     }
 }

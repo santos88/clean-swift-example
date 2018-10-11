@@ -13,12 +13,14 @@
 import UIKit
 
 protocol DetailBreedDisplayLogic: class {
-    func displaySomething(viewModel: DetailBreed.Something.ViewModel)
+    func displayPictures(viewModel: DetailBreed.InitialLoad.ViewModel)
 }
 
 class DetailBreedViewController: UIViewController, DetailBreedDisplayLogic {
+    @IBOutlet weak var collectionView: UICollectionView!
     var interactor: DetailBreedBusinessLogic?
     var router: (NSObjectProtocol & DetailBreedRoutingLogic & DetailBreedDataPassing)?
+    var viewModel: DetailBreed.InitialLoad.ViewModel?
 
     // MARK: Object lifecycle
 
@@ -47,34 +49,42 @@ class DetailBreedViewController: UIViewController, DetailBreedDisplayLogic {
         router.dataStore = interactor
     }
 
-    // MARK: Routing
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-
     // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        initialLoad()
     }
 
-    // MARK: Do something
-
-    //@IBOutlet weak var nameTextField: UITextField!
-
-    func doSomething() {
-        let request = DetailBreed.Something.Request()
-        interactor?.doSomething(request: request)
+    func initialLoad() {
+        let request = DetailBreed.InitialLoad.Request()
+        interactor?.initialLoad(request: request)
     }
 
-    func displaySomething(viewModel: DetailBreed.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+    func displayPictures(viewModel: DetailBreed.InitialLoad.ViewModel) {
+        self.viewModel = viewModel
+        DispatchQueue.main.async {
+            self.title = viewModel.title
+            self.collectionView.reloadData()
+        }
     }
+}
+
+extension DetailBreedViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.pictures.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dogCell", for: indexPath) as! DogCollectionViewCell
+        if let pic = viewModel?.pictures[indexPath.row] {
+            cell.configure(imageName: pic)
+        }
+        return cell
+    }
+}
+
+extension DetailBreedViewController: UICollectionViewDelegate {
+
 }

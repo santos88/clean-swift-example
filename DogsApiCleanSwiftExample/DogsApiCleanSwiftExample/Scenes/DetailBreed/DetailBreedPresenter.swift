@@ -13,7 +13,7 @@
 import UIKit
 
 protocol DetailBreedPresentationLogic {
-    func presentSomething(response: DetailBreed.Something.Response)
+    func presentPictures(response: DetailBreed.InitialLoad.Response)
 }
 
 class DetailBreedPresenter: DetailBreedPresentationLogic {
@@ -21,8 +21,8 @@ class DetailBreedPresenter: DetailBreedPresentationLogic {
 
     // MARK: Do something
 
-    func presentSomething(response: DetailBreed.Something.Response) {
-        let viewModel = DetailBreed.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func presentPictures(response: DetailBreed.InitialLoad.Response) {
+        let viewModel = DetailBreed.InitialLoad.ViewModel(pictures: response.pictures, title: response.title)
+        viewController?.displayPictures(viewModel: viewModel)
     }
 }
